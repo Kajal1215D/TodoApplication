@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="../CDN/jquery.min.js"></script>
+    <script src="../CDN/knockout-3.5.1.js"></script>
+    <script src="../CDN/knockout.validation.js"></script>
+    <title>todoPage</title>
+</head>
+
+<body style="background-image: url(../Images/blackBg.jpg);">
+
+    <div>
+        <nav class="navbar navbar-expand-lg"
+            style="margin-top: 2%; margin-left: 7%; margin-right: 7%; background-color: ivory;">
+            <a class="navbar-brand" href="#" style="color: black;">
+                <h1>MYTODO</h1>
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
+                aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarText">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                    </li>
+                    <li class="nav-item">
+                    </li>
+                    <li class="nav-item">
+                    </li>
+                </ul>
+                <span class="navbar-text">
+                    <button type="submit" class="btn" style="border-color: black; ">
+                        <a href="login.html" onclick="return logout()"
+                            style="font-size: 15px; font-weight: bold; color: rgb(10, 10, 2);">LOGOUT</a> &ensp;
+                        <span class="glyphicon glyphicon-log-out" aria-hidden="true"
+                            style="color: rgb(7, 6, 6);"></span>
+                    </button>
+                </span>
+            </div>
+            </form>
+        </nav>
+    </div>
+
+    <form>
+        <section>
+            <div class="container py-5 h-100">
+                <div class="row d-flex justify-content-center align-items-center h-100">
+                    <div class="col">
+                        <div class="card card-registration my-4">
+                            <div class="row g-0">
+                                <div class="col-xl-6 d-none d-xl-block"
+                                    style="background-image: url(../Images/todo.jpg); filter: blur(2px);">
+                                </div>
+                                <div class="col-xl-6">
+                                    <div class="card-body p-md-5 text-black">
+                                        <h3 style="color: rgb(126, 139, 51);">Add New Todo
+                                        </h3>
+
+                                        <p><br></p>
+
+                                        <div class="row">
+                                            <div class="form-outline mb-4">
+                                                <label class="form-label" style="font-weight: bold;"
+                                                    for="form3Example99">Todo Name</label>
+                                                <input type="text" id="form3Example1m"
+                                                    class="form-control form-control-lg" data-bind="value:todoName"
+                                                    placeholder="Todo Name" />
+                                            </div>
+
+                                        </div>
+                                        <div class="form-outline mb-4">
+                                            <label class="form-label" style="font-weight: bold;"
+                                                for="form3Example99">Description</label>
+                                            <textarea id="form3Example1n" rows="5" cols="50"
+                                                class="form-control form-control-lg" class="form-control"
+                                                data-bind="value:description"
+                                                placeholder="Add Todo Description here"></textarea>
+                                        </div>
+
+                                        <div class="form-outline mb-4">
+                                            <label class="form-label" style="font-weight: bold;"
+                                                for="form3Example9">Completion Date </label>
+                                            <input type="date" id="myDate" class="form-control form-control-lg"
+                                                data-bind="value: completionDate" data-date-format="YYYY MM DD" />
+                                        </div>
+
+                                        <div class="d-md-flex justify-content-start align-items-center mb-4 py-2">
+
+                                            <h6 class="mb-0 me-4" style="font-weight: bold;">Priority : </h6>
+
+                                            <div class="form-check form-check-inline mb-0 me-4">
+                                                <input type="radio" class="form-check-input" value="low"
+                                                    data-bind="checked : priority" name="priority" />
+                                                <label class="form-check-label">Low</label>
+                                            </div>
+
+                                            <div class="form-check form-check-inline mb-0 me-4">
+                                                <input type="radio" class="form-check-input" value="medium"
+                                                    data-bind="checked : priority" name="priority" />
+                                                <label class="form-check-label">Medium</label>
+                                            </div>
+
+                                            <div class="form-check form-check-inline mb-0 me-4">
+                                                <input type="radio" class="form-check-input" value="high"
+                                                    data-bind="checked : priority" name="priority" />
+                                                <label class="form-check-label">High</label>
+                                            </div>
+                                        </div>
+
+                                        <div class="d-flex justify-content-end pt-3">
+                                            <button type="button" class="btn btn-warning btn-lg ms-2"
+                                                data-bind="click: addNewTodo" id="Save">Add
+                                            </button>
+                                        </div>
+
+                                        <div class="d-flex justify-content-end pt-3">
+                                            <button type="button" class="btn btn-warning"
+                                                data-bind="click:$root.updateTask " style="display:none;" id="Update">
+                                                <span class="glyphicon  glyphicon glyphicon-pencil"
+                                                    aria-hidden="true"></span> Update
+                                            </button>
+                                        </div>
+                                    
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="container" style="margin-top: 7%; background-color: ivory;">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <span class="glyphicon  glyphicon glyphicon-zoom-in" aria-hidden="true"></span>
+                                    <b>Todo List
+                                    </b>
+                                </div>
+
+                                <div class="panel-body">
+
+                                    <table id="myTable" class="table" width="100%">
+
+                                        <thead>
+                                            <tr>
+
+                                                <th class="th-sm">Todo Name</th>
+                                                <th class="th-sm">Description</th>
+                                                <th class="th-sm">Started on</th>
+                                                <th class="th-sm">Completed on</th>
+                                                <th class="th-sm">Priority</th>
+                                                <th class="th-sm">Status</th>
+                                                <th class="th-sm">Edit </th>
+                                                <th class="th-sm">Delete</th>
+                                                <th class="th-sm">Todo Status</th>
+                                            </tr>
+                                        </thead>
+
+                                        <tbody data-bind="foreach: allTodoList">
+
+                                            <tr>
+                                                <td> <span data-bind="text: todoName"></span> </td>
+                                                <td> <span data-bind="text: description"></span></td>
+                                                <td> <span data-bind="text: startDate"></span></td>
+                                                <td> <span data-bind="text: completionDate"></span></td>
+                                                <td> <span data-bind="text: priority"></span> </td>
+                                                <td> <span
+                                                        data-bind="text: toDoStatus,text: toDoStatus?'Completed':'Pending'"></span>
+                                                </td>
+                                                <td><button type="button" class="btn-xs">
+                                                        <span class="glyphicon  glyphicon glyphicon-pencil"
+                                                            data-bind="click : $root.editTask"
+                                                            aria-hidden="true"></span>
+                                                    </button></td>
+                                                <td>
+                                                    <button type="button" class="btn btn-danger btn-xs">
+                                                        <span class="glyphicon glyphicon glyphicon-trash"
+                                                            aria-hidden="true"
+                                                            data-bind="click: $root.deleteTask"></span>
+                                                    </button>
+                                                </td>
+                                                <td>
+                                                    <input type="checkbox"
+                                                        data-bind="checked:toDoStatus,click : $root.changeStatus"
+                                                        class="btn-warning" />
+                                                </td>
+
+                                            </tr>
+
+                                        </tbody>
+
+                                    </table>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+    </form>
+
+    <script>
+        $(document).ready(function () {
+            var dtToday = new Date();
+            var month = dtToday.getMonth() + 1;
+            var day = dtToday.getDate();
+            var year = dtToday.getFullYear();
+            if (month < 10)
+                month = '0' + month.toString();
+            if (day < 10)
+                day = '0' + day.toString();
+
+            var maxDate = year + '-' + month + '-' + day;
+            $('#myDate').attr('min', maxDate);
+        });
+    //     $(document).ready(function () {
+    //     var obj = JSON.parse(sessionStorage.getItem("currentUserObj"))
+    //     if (obj == null || obj == undefined) {
+    //         window.location.href = 'login.html'
+    //     }
+    // })
+    // function logout() {
+    //         sessionStorage.removeItem("currentUserObj");
+    //         window.location.href = 'login.html'
+    //         return true;
+    //     }
+    </script>
+
+    <script src="../JS/toDo.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>TodoPage</title>
+    <meta charset="utf-8" />
+    <script src="knockout-3.5.1.js"></script>
+    <script src="jquery.min.js"></script>
+</head>
+
+<body>
+    <nav class="navbar navbar-default navbar-fixed-top">
+
+        <div class="container-fluid">
+
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Todo</a>
+            </div>
+
+        </div>
+
+    </nav>
+
+    <div class="container" style="margin-top: 7%;">
+
+
+        <div class="row">
+
+            <div class="col-md-12">
+
+               
+                <div class="panel panel-default">
+
+                    <div class="panel-heading"> <span class="glyphicon glyphicon glyphicon-tag"
+                            aria-hidden="true"></span> <b>Add Todo</b></div>
+                    <div class="panel-body">
+
+                        <form>
+
+                            <div class="form-group">
+                                <label for="todoName">Todo Name</label>
+                                <input type="text" id="todoName" class="form-control" data-bind="value:todoName"
+                                    placeholder="Todo Name" />
+                            </div>
+
+                            <div class="form-group">
+                                <label for="description">Description</label>
+                                <input type="text " id="description" class="form-control" data-bind="value:description"
+                                    placeholder="Write Description here" />
+                            </div>
+
+                            <div class="form-group">
+                                <label for="completionDate">Completion Date</label>
+                                <input type="date" id="completionDate" class="form-control"
+                                    data-bind="value: completionDate" data-date-format="YYYY MM DD" />
+                            </div>
+
+
+                            <div class="form-group ">
+                                <label>Priority :</label>&nbsp;
+                                <input type="radio" value="low" data-bind="checked : priority" name="priority" /> Low
+                                &nbsp;
+                                <input type="radio" value="medium" data-bind="checked : priority" name="priority" />
+                                Medium &nbsp;
+                                <input type="radio" value="high" data-bind="checked : priority" name="priority" /> High
+                                &nbsp;
+                            </div>
+
+                            <button type="button" class="btn btn-success" data-bind="click: addNewTodo" id="Save">
+                                <span class="glyphicon  glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> Save
+                            </button>
+
+                            <button type="button" class="btn btn-warning" data-bind="click:$root.updateTask "
+                                style="display:none;" id="Update">
+                                <span class="glyphicon  glyphicon glyphicon-pencil" aria-hidden="true"></span> Update
+                            </button>
+
+                        </form>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+        <div class="container" style="margin-top: 7%;">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <span class="glyphicon  glyphicon glyphicon-zoom-in" aria-hidden="true"></span> <b>Todo List
+                            </b>
+                        </div>
+
+                        <div class="panel-body">
+
+                            <table class="table table-hover">
+
+                                <thead>
+                                    <tr>
+
+                                        <th>Todo Name</th>
+                                        <th>Description</th>
+                                        <th>Started on</th>
+                                        <th>Completed on</th>
+                                        <th>Priority</th>
+                                        <th>Status</th>
+                                        <th>Edit </th>
+                                        <th>Delete</th>
+                                        <th>Todo Status</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody data-bind="foreach: allTodoList">
+
+                                    <tr>
+                                        <td> <span data-bind="text: todoName"></span> </td>
+                                        <td> <span data-bind="text: description"></span></td>
+                                        <td> <span data-bind="text: startDate"></span></td>
+                                        <td> <span data-bind="text: completionDate"></span></td>
+                                        <td> <span data-bind="text: priority"></span> </td>
+                                        <td> <span
+                                                data-bind="text: toDoStatus,text: toDoStatus?'Completed':'Pending'"></span>
+                                        </td>
+                                        <td><button type="button" class="btn-xs">
+                                                <span class="glyphicon  glyphicon glyphicon-pencil"
+                                                    data-bind="click : $root.editTask" aria-hidden="true"></span>
+                                            </button></td>
+                                        <td>
+                                            <button type="button" class="btn btn-danger btn-xs">
+                                                <span class="glyphicon glyphicon glyphicon-trash" aria-hidden="true"
+                                                    data-bind="click: $root.deleteTask"></span>
+                                            </button>
+                                        </td>
+                                        <td>
+                                            <input type="checkbox"
+                                                data-bind="checked:toDoStatus,click : $root.changeStatus"
+                                                class="btn-warning" />
+                                        </td>
+
+                                    </tr>
+
+                                </tbody>
+
+                            </table>
+
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <script src="toDo.js"></script>
+</body>
+
+</html> -->
